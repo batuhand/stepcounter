@@ -1,23 +1,18 @@
 class StepModel {
-  final int stepCount;
-  final DateTime date;
+  int? stepCount;
+  int? date;
 
-  StepModel({
-    required this.stepCount,
-    required this.date,
-  });
+  StepModel({this.stepCount, this.date});
 
-  Map<String, dynamic> toMap() {
-    return {
-      'stepCount': stepCount,
-      'date': date.toIso8601String(),
-    };
+  StepModel.fromJson(Map<String, dynamic> json) {
+    stepCount = json['stepCount'];
+    date = json['date'];
   }
 
-  factory StepModel.fromMap(Map<String, dynamic> map) {
-    return StepModel(
-      stepCount: map['stepCount'],
-      date: DateTime.parse(map['date']),
-    );
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['stepCount'] = this.stepCount;
+    data['date'] = this.date;
+    return data;
   }
 }
