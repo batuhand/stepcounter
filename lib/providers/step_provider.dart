@@ -8,18 +8,16 @@ class StepProvider extends ChangeNotifier {
   List<int> weeklySteps = [];
   StepDbController stepController = StepDbController();
 
-  initStepDB() {
+  initStepDB() async {
     loading = true;
-    stepController.init().then((value) {
-      loading = false;
-      notifyListeners();
-    });
+    await stepController.init();
+    loading = false;
+    notifyListeners();
   }
 
   getWeeklySteps() async {
     loading = true;
     DateTime today = DateTime.now();
-    notifyListeners();
     for (var i = 0; i < 7; i++) {
       var result = await stepController
           .getStepsAt(DateTime(today.year, today.month, today.day - i));
@@ -27,6 +25,7 @@ class StepProvider extends ChangeNotifier {
       weeklySteps.add(result);
     }
     loading = false;
+    print(weeklySteps.toString());
     notifyListeners();
   }
 

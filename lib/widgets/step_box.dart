@@ -5,7 +5,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:untitled/models/StepModel.dart';
 import 'package:untitled/providers/step_provider.dart';
 import 'package:vibration/vibration.dart';
-
+import 'package:intl/intl.dart';
 import 'achievement_bar.dart';
 import 'reeder_icon_data.dart';
 
@@ -78,7 +78,10 @@ class _StepBoxState extends State<StepBox> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
+    DateTime date = DateTime.now();
+    return Provider.of<StepProvider>(context).loading
+        ? CircularProgressIndicator()
+        : Material(
       elevation: 2,
       borderRadius: BorderRadius.circular(20),
       child: Container(
@@ -179,28 +182,28 @@ class _StepBoxState extends State<StepBox> {
                       // Bind data source
                       dataSource: <SalesData>[
                         SalesData(
-                            'Jan',
-                            Provider.of<StepProvider>(context)
+                            DateFormat('EEEE').format(DateTime(date.year,date.month,date.day-4)),
+                            Provider.of<StepProvider>(context,listen:false)
                                 .weeklySteps[4]
                                 .toDouble()),
                         SalesData(
-                            'Feb',
-                            Provider.of<StepProvider>(context)
+                            DateFormat('EEEE').format(DateTime(date.year,date.month,date.day-3)),
+                            Provider.of<StepProvider>(context,listen:false)
                                 .weeklySteps[3]
                                 .toDouble()),
                         SalesData(
-                            'Mar',
-                            Provider.of<StepProvider>(context)
+                            DateFormat('EEEE').format(DateTime(date.year,date.month,date.day-2)),
+                            Provider.of<StepProvider>(context,listen:false)
                                 .weeklySteps[2]
                                 .toDouble()),
                         SalesData(
-                            'Apr',
-                            Provider.of<StepProvider>(context)
+                            DateFormat('EEEE').format(DateTime(date.year,date.month,date.day-1)),
+                            Provider.of<StepProvider>(context,listen:false)
                                 .weeklySteps[1]
                                 .toDouble()),
                         SalesData(
                             'Today',
-                            Provider.of<StepProvider>(context)
+                            Provider.of<StepProvider>(context,listen:false)
                                 .weeklySteps[0]
                                 .toDouble())
                       ],
